@@ -1,11 +1,6 @@
 <!DOCTYPE HTML>
 <!--
-CSCE Project 3 code developed by:
-    Matthew Kocmoud
-    Austin Martin
-    Austin Massad
-
-This page will allow users to upload images from various webpages to their facebook photos
+This page will allow users to upload images from various webpages to their facebook photos and twitter account
 using a simple drag & drop technique.
 
 Drag & drop implemenation based on code by l.m.orchard, a Mozilla developer, at the following page:
@@ -20,86 +15,6 @@ http://decafbad.com/2009/07/drag-and-drop/api-demos.html#feedback_image
         <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
         <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
-        <script>
-            var db = openDatabase('database-new.cse.tamu.edu', 'mkocmoud', 'Project3', 2 * 1024 * 1024);
-            var imageName = "", imageURL = "";
-            var urls = new Array();
-            
-            db.transaction(function (tx) {
-                //tx.executeSql('DROP TABLE IF EXISTS IMAGES'); // comment out to not clear the database
-                tx.executeSql('CREATE TABLE IF NOT EXISTS IMAGES (name, url)');
-                tx.executeSql('INSERT INTO IMAGES (name, url) VALUES ("test", "http://www.indianfootballonline.com/img/sport/sport_318_test-201.gif")');
-            });
-
-            function getUrls()
-            {
-                var x = document.getElementById("fname");
-                db.readTransaction(function (tx) {
-                    tx.executeSql('SELECT * FROM IMAGES', [], function (tx, results) {
-                        var len = results.rows.length, i;
-                        var strUrl = "";
-                        for (i = 0; i < len; i++){
-                            urls[i] = results.rows.item(i).url;
-                            strUrl += results.rows.item(i).url;
-                        }
-                        //alert(strUrl);
-                    });
-                });
-            }
-            
-            function clearImages() 
-            {
-                db.transaction(function (tx) {
-                    tx.executeSql('DROP TABLE IMAGES'); // clear all previous images in database
-                    tx.executeSql('CREATE TABLE IMAGES (name, url)');
-                });
-            }
-            
-            function searchName() 
-            {
-                var x = document.getElementById("fname");
-                db.readTransaction(function (tx) {
-                    tx.executeSql('SELECT * FROM IMAGES WHERE name=?', [x.value], function (tx, results) {
-                        var len = results.rows.length, i;
-                        msg = "<p>Found images: " + len + "</p>";
-                        document.querySelector('#status').innerHTML +=  msg;
-                        for (i = 0; i < len; i++){
-                            msg = "<p>Name:&nbsp<b>" + results.rows.item(i).name 
-                                + "</b>&nbsp&nbsp&nbspURL:&nbsp<b>" + results.rows.item(i).url + "</b></p>";
-                            document.querySelector('#status').innerHTML +=  msg;
-                        }
-                    });
-                });
-            }
-
-            function imageEnter() {
-                document.getElementById("heredrop").className =
-                    document.getElementById("heredrop").className.replace
-                ( /(?:^|\s)dragover(?!\S)/g , '' )
-                imageName = (document.getElementById("imgname")).value;
-                imageURL = (document.getElementById("imgurl")).value;
-                (document.getElementById("imgname")).value = "";
-                (document.getElementById("imgurl")).value = "";
-                (document.getElementById("imgurl")).value = "";
-                (document.getElementById("thumbnail")).src = "steel.jpg";
-                
-                db.transaction(function (tx) {
-                    tx.executeSql('INSERT INTO IMAGES (name, url) VALUES (?, ?)', [imageName, imageURL]);
-                });
-				getUrls();
-            }
- 
-            function getName(str) {
-                var strs = str.split("/");
-                var lastElem = strs.length-1;
-                (document.getElementById("imgurl")).value = str;
-                (document.getElementById("thumbnail")).src = str;
-                return strs[lastElem];
-            }
-            
-            
-        </script>
-
     </head>
     <body>
 		<div id="fb-root"></div>
@@ -152,7 +67,6 @@ http://decafbad.com/2009/07/drag-and-drop/api-demos.html#feedback_image
   
   
             function uploadPics(){
-				if(
                 switch 
                 var imgURL;
                 alert(urls[0]);
@@ -171,7 +85,6 @@ http://decafbad.com/2009/07/drag-and-drop/api-demos.html#feedback_image
             }
         </script>
         <script>
-		<script>
 		window.fncWriteInputData=function(){
 			google.script.run
 			.postImage(imgname, imgurl);
@@ -190,7 +103,7 @@ http://decafbad.com/2009/07/drag-and-drop/api-demos.html#feedback_image
                         <select>
                             <option value="facebook">Facebook</option>
                             <option value="twitter">Twitter</option>
-                            <option value="insta">Instagram</option>
+							<option value="both">Both</option>
                         </select>
 						<button onclick="uploadPics()" style="float:right">Upload Pictures</button>
                         <button onclick="clearImages()" style="float:center">Clear Images</button>
