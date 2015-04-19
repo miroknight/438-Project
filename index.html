@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<h1>CSCE 315 Summer - Project 3</h1>
+<h3><p>Austin Massad<p>Austin Martin<p>Matthew Kocmoud</h3>
+<script type="text/javascript" src="binaryajax.js"></script>
+<script type="text/javascript" src="imageinfo.js" ></script>
+<script type="text/javascript" src="exif.js" ></script>
+<script type="text/javascript" >
+var db = openDatabase('database-new.cse.tamu.edu', 'mkocmoud', 'Project3', 2 * 1024 * 1024);
+var msg; 
+var imageID = "12345", imageName = "Matt", imageURL = "http://projects.cse.tamu.edu/mkocmoud/clouds.jpg", imageLoc = "Reed McDonald"; 
+var len = 0;
+
+// database code parts used from http://www.w3.org/TR/webdatabase/
+db.transaction(function (tx) {
+  tx.executeSql('DROP TABLE IF EXISTS IMAGES');
+  tx.executeSql('CREATE TABLE IMAGES (id unique, name, url, location)');
+  tx.executeSql('INSERT INTO IMAGES (id, name, url, location) VALUES (?, ?, ?, ?)', [imageID, imageName, imageURL, imageLoc]);
+  tx.executeSql('INSERT INTO IMAGES (id, name, url, location) VALUES (2184658, "Matt", "http://projects.cse.tamu.edu/mkocmoud/fractal.jpg", "College Station")');
+  tx.executeSql('INSERT INTO IMAGES (id, name, url, location) VALUES (8262714, "Me", "http://projects.cse.tamu.edu/mkocmoud/fractal.gif", "MSC")');
+  msg = '<p>Image message created and row inserted.</p>';
+  document.querySelector('#status').innerHTML =  msg;
+});
+
+// allows an image to displayed when searching for database
+function addImage(url) {
+	var img = document.createElement("img");
+	img.src = url;
+    img.style.height = '150px';
+    img.style.width = '200px';
+	document.getElementById('searchImage').appendChild(img);
+}
+
+// delete previous search images
+function deletePastImages() {
+    var imgs = document.getElementsByTagName("img");
+    for (var i = 0; i < len; ++i) {
+        imgs[0].parentNode.removeChild(imgs[0]);
+    }
+}
+
+// searches database for a specific image name
+function searchName() {
+    var x = document.getElementById("fname");
+    db.readTransaction(function (tx) {
+        tx.executeSql('SELECT * FROM IMAGES WHERE name=?', [x.value], function (tx, results) {
+            if (len > 0) deletePastImages();
+            len = results.rows.length;
+            var i;
+            msg = "";
+            msg = "<p>Found images: " + len + "</p>";
+            document.querySelector('#status').innerHTML =  msg;
+            for (i = 0; i < len; i++){
+                msg = "<p>Name:&nbsp<b>" + results.rows.item(i).name 
+                    + "</b>&nbsp&nbsp&nbspLocation:&nbsp<b>" + results.rows.item(i).location 
+                    + "</b>&nbsp&nbsp&nbspURL:&nbsp<b>" + results.rows.item(i).url + "</b></p>";
+
+                addImage(results.rows.item(i).url);
+                document.querySelector('#status').innerHTML +=  msg;
+            }
+        });
+    });
+}
+
+// This function saves a specific text fields to the corresponding global variable
+function setField(str) {
+    if (str == "imid") imageID = (document.getElementById("imid")).value;
+    else if (str == "imname") imageName = (document.getElementById("imname")).value;
+    else if (str == "imurl") imageURL = (document.getElementById("imurl")).value;
+    else if (str == "imloc") imageLoc = (document.getElementById("imloc")).value;
+}
+ 
+// clear text in image input textboxes
+function setBlank() {
+    (document.getElementById("imid")).value = "";
+    (document.getElementById("imname")).value = "";
+    (document.getElementById("imurl")).value = "";
+    (document.getElementById("imloc")).value = "";
+}
+
+// defines image save to database when 'submit' clicked
+function imageEnter() {
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO IMAGES (id, name, url, location) VALUES (?, ?, ?, ?)', [imageID, imageName, imageURL, imageLoc]);
+        msg = '<p>Image message created and row inserted.</p>';
+        document.querySelector('#status').innerHTML =  msg;
+    });
+    setBlank();
+}
+
+</script>
+</head>
+<body>
+Image id: <input type="text" id="imid" onchange="setField('imid')">
+<p>Image name: <input type="text" id="imname" onchange="setField('imname')"></p>
+<p>Image url: <input type="text" id="imurl" onchange="setField('imurl')"></p>
+<p>Image location: <input type="text" id="imloc" onchange="setField('imloc')"></p>
+<p><button id="imageEnter" onclick="imageEnter()">Submit Image</button></p>
+<p>Enter the name you want to search for: <input type="text" id="fname" onchange="searchName()"></p>
+<div id="status" name="status">Status Message</div>
+<div id="searchImage"></div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+body {
+   font-family: sans-serif;
+   font-size: 95%;
+   margin: 1em 1.5em;
+   background-color: #A3A3A3;
+}
+#content {
+}
+.template {
+    display: none;
+}
+p, h2 {
+}
+h1 {
+    border-bottom: 3px solid #333;
+}
+#toc {
+}
+#toc li {
+    padding: 0 0 0.5em 0;
+    font-size: 1em;
+}
+h2 {
+    text-align: center;
+    border-style: ridge;
+    border-width: 5px;
+    border-color: #0047B2;
+    background-color: grey;
+    padding: 0.25em 0;
+    margin: 0 0 1em 0;
+}
+.toclink {
+    padding-left: 1em;
+    font-size: 0.5em;
+}
+p.srclink {
+    border-top: 1px solid #666;
+    padding: 0.5em 0 0 0;
+    margin: 0 0 2em 0;
+}
+.messages {
+    position: absolute;
+    left: 39em;
+    clear: both;
+    list-style: none;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin: 1em;
+    width: 50ex;
+    height: 16em;
+    top: 60px;
+    overflow: auto;
+    border: 2px solid grey;
+}
+.messages .time {
+    display: block;
+    font-size: 0.75em;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.messages .txt {
+    display: block;
+    font-family: monospace;
+    margin-bottom: 1em;
+}
+.dragme {
+    width: 64px;
+    height: 64px;
+    border: 1px solid #666;
+    background: #acf;
+    margin: 0.25em;
+    padding: 0.25em;
+    cursor: pointer;
+}
+.drophere {
+    padding: 0.25em;
+    position: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    height: 40%;
+    border-style: ridge;
+    border-width: 5px;
+    border-color: #0047B2;
+    background: white;
+    margin: 0 0 0 15em;
+}
+.upload {
+    padding: 0.25em;
+    position: fixed;
+    top: 40em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    height: 16ex;
+    border: 2px solid #0047B2;
+    background: gray;
+    margin: 0 0 0 15em;
+}
+.dragover {
+    background: blue;
+}
+
+#newschool {
+    clear: both;
+}
+#newschool .dragme {
+    float: left;
+}
+#newschool .drophere {
+    margin: 0 0 0 15ex;
+}
+#newschool .dragover {
+    background: #8f8;
+}
+
+ul.draglist {
+    float: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul.draglist li {
+    margin: 0 0 10px 0;
+}
+ul.draglist li.dragme {
+    height: 32px;
+}
+ul.droplist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 15ex;
+}
+ul.droplist li {
+    margin: 0 0 10px 0;
+}
+ul.droplist li.drophere {
+    height: 32px;
+}
+
+#feedback_image .drophere {
+    margin: 0 0 0 22ex;
+}
+
+#data_transfer .drophere {
+    width: 45ex;
+    height: 4em;
+    margin: 1em 0 0 22ex;
+}
+#data_transfer .content_html {
+    margin: 1em 0 0 22ex;
+}
+#data_transfer .content_html .content {
+    margin: 0.5em;
+    padding: 0.5em;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+#data_transfer .content_text {
+    margin: 1em 0 0 22ex;
+}
+#data_transfer .content_text .content {
+    margin: 0.5em;
+    padding: 0.5em;
+    font-family: monospace;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+#data_transfer .content_url {
+    margin: 1em 0 0 22ex;
+}
+#data_transfer .content_url .content {
+    margin: 0.5em;
+    padding: 0.5em;
+    font-family: monospace;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+#data_transfer .draglist li {
+    width: 17ex;
+    margin: 0.25em;
+    padding: 0.25em;
+}
+#data_transfer .dragme {
+    border: 1px solid #666;
+    background: #acf;
+    cursor: pointer;
+}
+
+
