@@ -9,8 +9,8 @@ function oAuthConfig() {
     oAuthConfig.setRequestTokenUrl("https://api.twitter.com/oauth/request_token");
     oAuthConfig.setAuthorizationUrl("https://api.twitter.com/oauth/authorize");
  
-    oAuthConfig.setConsumerKey(ScriptProperties.getProperty("consumer_key"));
-    oAuthConfig.setConsumerSecret(ScriptProperties.getProperty("consumer_secret"));
+    oAuthConfig.setConsumerKey(ScriptProperties.getProperty(6ROjBwlk37J4KiVlABCUkLF5P));
+    oAuthConfig.setConsumerSecret(ScriptProperties.getProperty(fAURhqWtrVyiiGL04JVDDG5OQYwvJDKj4AivjRdk2jWEuXSsAK));
 }
  
 function postImage(tweetText, imageUrl) {
